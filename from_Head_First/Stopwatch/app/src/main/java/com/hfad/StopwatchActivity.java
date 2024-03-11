@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Locale;
 
 public class StopwatchActivity extends Activity {
-    private int seconds = 0;
+    private int milliseconds = 0;
     private boolean running;
     private boolean wasRunning;
 
@@ -21,7 +21,7 @@ public class StopwatchActivity extends Activity {
         setContentView(R.layout.activity_stopwatch);
 
         if (savedInstanceState != null) {
-            seconds = savedInstanceState.getInt("seconds");
+            milliseconds = savedInstanceState.getInt("milliseconds");
             running = savedInstanceState.getBoolean("running");
             wasRunning = savedInstanceState.getBoolean("wasRunning");
         }
@@ -31,21 +31,21 @@ public class StopwatchActivity extends Activity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putInt("milliseconds", milliseconds);
         savedInstanceState.putBoolean("running", running);
         savedInstanceState.putBoolean("wasRunning", wasRunning);
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
+    protected void onPause(){
+        super.onPause();
         wasRunning = running;
         running = false;
     }
 
     @Override
-    protected void onStart(){
-        super.onStart();
+    protected void onResume(){
+        super.onResume();
         if (wasRunning) {
             running = true;
         }
@@ -59,7 +59,7 @@ public class StopwatchActivity extends Activity {
     }
     public void onClickReset(View view){
         running = false;
-        seconds = 0;
+        milliseconds = 0;
     }
 
     private void runTimer() {
@@ -69,16 +69,17 @@ public class StopwatchActivity extends Activity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                int hours = seconds/3600;
-                int minutes = (seconds%3600)/60;
-                int secs = seconds%60;
+                int hours = milliseconds/3600000;
+                int minutes = (milliseconds%60000);
+                int secs = (milliseconds%1000)/60;
+                int milsecs = milliseconds%100;
 
-                String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
+                String time = String.format(Locale.getDefault(), "%d:%02d:%02d:%02d", hours, minutes, secs, milsecs);
                 timeView.setText(time);
                 if (running) {
-                    seconds++;
+                    milliseconds++;
                 }
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 10);
             }
         });
     }
