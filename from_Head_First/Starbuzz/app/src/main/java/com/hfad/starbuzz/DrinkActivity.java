@@ -1,6 +1,7 @@
 package com.hfad.starbuzz;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ public class DrinkActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
+
+        SQLiteOpenHelper starrbuzzDatabaseHelper = new StarbuzzDatabaseHelper(this);
 
         int drinkId = (Integer)getIntent().getExtras().get(EXTRA_DRINKID);
         Drink drink = Drink.drinks[drinkId];
