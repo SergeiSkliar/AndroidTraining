@@ -1,6 +1,8 @@
 package com.hfad.starbuzz;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -14,6 +16,9 @@ public class DrinkCategoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_category);
+
+        SQLiteOpenHelper starbuzzDatabaseHelper = new StarbuzzDatabaseHelper(this);
+        SQLiteDatabase db = starbuzzDatabaseHelper.getReadableDatabase();
 
         ArrayAdapter<Drink> listAdapter = new ArrayAdapter<>(
                 this,
