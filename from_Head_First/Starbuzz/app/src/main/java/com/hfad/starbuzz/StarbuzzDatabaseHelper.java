@@ -16,8 +16,6 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         updateMyDatabase(db, 0, DB_VERSION);
-
-
     }
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -37,7 +35,7 @@ public class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        updateMyDatabase(db, 0, DB_VERSION);
+        updateMyDatabase(db, oldVersion, DB_VERSION);
     }
 
     private static void insertDrink(SQLiteDatabase db, String name, String description, int resourceId) {
