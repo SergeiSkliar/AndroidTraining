@@ -65,7 +65,7 @@ public class DrinkActivity extends Activity {
         ContentValues drinkValues = new ContentValues();
         drinkValues.put("FAVORITE", favorite.isChecked());
 
-        SQLiteOpenHelper starbuzzDatabaseHelper = new StarbuzzDatabaseHelper(this);
+        SQLiteOpenHelper starbuzzDatabaseHelper = new StarbuzzDatabaseHelper(DrinkActivity.this);
         try {
             SQLiteDatabase db = starbuzzDatabaseHelper.getWritableDatabase();
             db.update("DRINK",
